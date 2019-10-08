@@ -1,3 +1,9 @@
+wlroots (0.7.0-2pureos+librem5.1) amber-phone; urgency=medium
+
+  * Backport to puros.
+
+ -- Guido Günther <agx@sigxcpu.org>  Tue, 08 Oct 2019 12:30:48 +0200
+
 wlroots (0.7.0-2) experimental; urgency=medium
 
   [ Birger Schacht ]
