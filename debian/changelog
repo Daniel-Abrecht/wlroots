@@ -1,3 +1,9 @@
+wlroots (0.8.1-1pureos+librem5.1) amber-phone; urgency=medium
+
+  * Backport to PureOS.
+
+ -- Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>  Mon, 23 Dec 2019 00:36:22 +0100
+
 wlroots (0.8.1-1) experimental; urgency=medium
 
   * Bump shlibs version
