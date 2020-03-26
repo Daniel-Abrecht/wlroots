@@ -1,0 +1,54 @@
+From bb70308ee1f3ff7c76f3f63628c27c8f4367f833 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Guido=20G=C3=BCnther?= <agx@sigxcpu.org>
+Date: Thu, 31 Oct 2019 18:45:34 +0100
+Subject: [PATCH 02/14] backend/drm: Retry disable without unsetting mode and
+ crtc id
+
+otherwise we can't blank/unblank on DSI with fixed pipeline (
+like mxsfb).
+
+We later on want to do
+
+https://github.com/swaywm/wlroots/issues/1889#issuecomment-549029033
+
+but that breaks unblank atm.
+---
+ backend/drm/atomic.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
+
+diff --git a/backend/drm/atomic.c b/backend/drm/atomic.c
+index 71b18f98..bde55199 100644
+--- a/backend/drm/atomic.c
++++ b/backend/drm/atomic.c
+@@ -143,15 +143,26 @@ static bool atomic_conn_enable(struct wlr_drm_backend *drm,
+ 	struct atomic atom;
+ 	atomic_begin(crtc, &atom);
+ 	atomic_add(&atom, crtc->id, crtc->props.active, enable);
++	int ok;
+ 	if (enable) {
+ 		atomic_add(&atom, conn->id, conn->props.crtc_id, crtc->id);
+ 		atomic_add(&atom, crtc->id, crtc->props.mode_id, crtc->mode_id);
++		ok = atomic_commit(drm->fd, &atom, conn, DRM_MODE_ATOMIC_ALLOW_MODESET,
++			true);
+ 	} else {
+ 		atomic_add(&atom, conn->id, conn->props.crtc_id, 0);
+ 		atomic_add(&atom, crtc->id, crtc->props.mode_id, 0);
++		ok = atomic_commit(drm->fd, &atom, conn, DRM_MODE_ATOMIC_ALLOW_MODESET,
++			true);
++		if (!ok) {
++			wlr_log(WLR_DEBUG, "Blank with crtc/mode unset did not work - "
++				"just disabling.");
++			atomic_add(&atom, crtc->id, crtc->props.active, enable);
++			ok = atomic_commit(drm->fd, &atom, conn,
++				DRM_MODE_ATOMIC_ALLOW_MODESET, true);
++		}
+ 	}
+-	return atomic_commit(drm->fd, &atom, conn, DRM_MODE_ATOMIC_ALLOW_MODESET,
+-		true);
++	return ok;
+ }
+ 
+ static bool atomic_crtc_set_cursor(struct wlr_drm_backend *drm,
+-- 
+2.26.0
+

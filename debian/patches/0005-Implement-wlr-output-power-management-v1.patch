@@ -1,20 +1,21 @@
-From: =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>
+From 9c991af936c8a43a6a6862f1ef34ff32cca3183e Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Guido=20G=C3=BCnther?= <agx@sigxcpu.org>
 Date: Fri, 25 Oct 2019 19:26:20 +0200
-Subject: Implement wlr-output-power-management-v1
+Subject: [PATCH 05/14] Implement wlr-output-power-management-v1
 
 Co-authored-by: Simon Ser <contact@emersion.fr>
 (cherry picked from commit ba14e196f67b1cc0d8c583b8a3c52669ac6d099e)
 ---
- include/wlr/types/wlr_output_power_management_v1.h |  41 ++++
- types/meson.build                                  |   1 +
- types/wlr_output_power_management_v1.c             | 224 +++++++++++++++++++++
+ .../types/wlr_output_power_management_v1.h    |  41 ++++
+ types/meson.build                             |   1 +
+ types/wlr_output_power_management_v1.c        | 224 ++++++++++++++++++
  3 files changed, 266 insertions(+)
  create mode 100644 include/wlr/types/wlr_output_power_management_v1.h
  create mode 100644 types/wlr_output_power_management_v1.c
 
 diff --git a/include/wlr/types/wlr_output_power_management_v1.h b/include/wlr/types/wlr_output_power_management_v1.h
 new file mode 100644
-index 0000000..2ceb860
+index 00000000..2ceb8600
 --- /dev/null
 +++ b/include/wlr/types/wlr_output_power_management_v1.h
 @@ -0,0 +1,41 @@
@@ -60,7 +61,7 @@ index 0000000..2ceb860
 +
 +#endif
 diff --git a/types/meson.build b/types/meson.build
-index fb8562c..1289b1f 100644
+index fb8562c3..1289b1f3 100644
 --- a/types/meson.build
 +++ b/types/meson.build
 @@ -45,6 +45,7 @@ wlr_files += files(
@@ -73,7 +74,7 @@ index fb8562c..1289b1f 100644
  	'wlr_pointer_gestures_v1.c',
 diff --git a/types/wlr_output_power_management_v1.c b/types/wlr_output_power_management_v1.c
 new file mode 100644
-index 0000000..1b18230
+index 00000000..1b182300
 --- /dev/null
 +++ b/types/wlr_output_power_management_v1.c
 @@ -0,0 +1,224 @@
@@ -301,3 +302,6 @@ index 0000000..1b18230
 +
 +	return manager;
 +}
+-- 
+2.26.0
+

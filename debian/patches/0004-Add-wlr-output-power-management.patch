@@ -1,16 +1,17 @@
-From: =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>
+From 1ec6ac115f1fcc8b9980ac1cc38b1331b4c56765 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Guido=20G=C3=BCnther?= <agx@sigxcpu.org>
 Date: Fri, 25 Oct 2019 19:26:19 +0200
-Subject: Add wlr-output-power-management
+Subject: [PATCH 04/14] Add wlr-output-power-management
 
 (cherry picked from commit dfc5a4028868749eab7c25a6378197c368be15ea)
 ---
- protocol/meson.build                               |   1 +
- .../wlr-output-power-management-unstable-v1.xml    | 128 +++++++++++++++++++++
+ protocol/meson.build                          |   1 +
+ ...lr-output-power-management-unstable-v1.xml | 128 ++++++++++++++++++
  2 files changed, 129 insertions(+)
  create mode 100644 protocol/wlr-output-power-management-unstable-v1.xml
 
 diff --git a/protocol/meson.build b/protocol/meson.build
-index b9aa49c..960a616 100644
+index b9aa49c7..960a6164 100644
 --- a/protocol/meson.build
 +++ b/protocol/meson.build
 @@ -40,6 +40,7 @@ protocols = {
@@ -23,7 +24,7 @@ index b9aa49c..960a616 100644
  }
 diff --git a/protocol/wlr-output-power-management-unstable-v1.xml b/protocol/wlr-output-power-management-unstable-v1.xml
 new file mode 100644
-index 0000000..a977839
+index 00000000..a9778399
 --- /dev/null
 +++ b/protocol/wlr-output-power-management-unstable-v1.xml
 @@ -0,0 +1,128 @@
@@ -155,3 +156,6 @@ index 0000000..a977839
 +    </request>
 +  </interface>
 +</protocol>
+-- 
+2.26.0
+

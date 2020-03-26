@@ -21,7 +21,7 @@ Build-Depends:
  libxcb-render0-dev,
  libxcb-xfixes0-dev,
  libxkbcommon-dev,
- meson (>= 0.51.2),
+ meson (>= 0.51.0),
  pkg-config,
  wayland-protocols (>= 1.17),
 Standards-Version: 4.4.1

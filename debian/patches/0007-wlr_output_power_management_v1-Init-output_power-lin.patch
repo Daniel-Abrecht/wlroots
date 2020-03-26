@@ -1,6 +1,7 @@
-From: =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>
+From 66a63daf92550f51848645fdcae0d033fa4da0ef Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Guido=20G=C3=BCnther?= <agx@sigxcpu.org>
 Date: Thu, 27 Feb 2020 13:48:38 +0100
-Subject: wlr_output_power_management_v1: Init output_power->link
+Subject: [PATCH 07/14] wlr_output_power_management_v1: Init output_power->link
 
 This makes sure the `wl_list_remove(&output_power->link)` in
 `output_power_destroy()` does not crash even when the output_power never
@@ -13,7 +14,7 @@ output` error path of `output_power_manager_get_output_power`.
  1 file changed, 1 insertion(+)
 
 diff --git a/types/wlr_output_power_management_v1.c b/types/wlr_output_power_management_v1.c
-index 1b18230..115c74f 100644
+index 1b182300..115c74f7 100644
 --- a/types/wlr_output_power_management_v1.c
 +++ b/types/wlr_output_power_management_v1.c
 @@ -123,6 +123,7 @@ static void output_power_manager_get_output_power(struct wl_client *client,
@@ -24,3 +25,6 @@ index 1b18230..115c74f 100644
  
  	uint32_t version = wl_resource_get_version(manager_resource);
  	output_power->resource = wl_resource_create(client,
+-- 
+2.26.0
+

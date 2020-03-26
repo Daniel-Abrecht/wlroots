@@ -1,0 +1,30 @@
+From 8fd62aaa18bd4f31933e99ef5d5fd15aff5b6c5e Mon Sep 17 00:00:00 2001
+From: Sebastian Krzyszkowiak <dos@dosowisko.net>
+Date: Sun, 26 Jan 2020 23:10:56 +0100
+Subject: [PATCH 03/14] Revert "Bump meson version to 0.51.2"
+
+This reverts commit 062583ed58ad9ebe036059c1646770c1fa21f503.
+
+The bug mentioned there happens only when examples are built, and
+with d9fdd28ac662b6aa569b3df1edcd872b1ba8eb7e in place it doesn't
+actually affect us.
+---
+ meson.build | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/meson.build b/meson.build
+index 9096d43f..b8836bb1 100644
+--- a/meson.build
++++ b/meson.build
+@@ -3,7 +3,7 @@ project(
+ 	'c',
+ 	version: '0.10.0',
+ 	license: 'MIT',
+-	meson_version: '>=0.51.2',
++	meson_version: '>=0.51.0',
+ 	default_options: [
+ 		'c_std=c11',
+ 		'warning_level=2',
+-- 
+2.26.0
+

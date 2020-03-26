@@ -1,0 +1,92 @@
+From 2d082b7a5d9194ec51f8e7551d659b534990623e Mon Sep 17 00:00:00 2001
+From: Dorota Czaplejewicz <dorota.czaplejewicz@puri.sm>
+Date: Wed, 12 Feb 2020 17:15:28 +0000
+Subject: [PATCH 08/14] text_input_v3: Note features supported by the text
+ field
+
+With this information, consumers can realize they will never retrieve some state, and adjust their strategy.
+---
+ include/wlr/types/wlr_text_input_v3.h | 12 ++++++++++++
+ types/wlr_text_input_v3.c             |  6 +++++-
+ 2 files changed, 17 insertions(+), 1 deletion(-)
+
+diff --git a/include/wlr/types/wlr_text_input_v3.h b/include/wlr/types/wlr_text_input_v3.h
+index 079a3e8a..74dc26c3 100644
+--- a/include/wlr/types/wlr_text_input_v3.h
++++ b/include/wlr/types/wlr_text_input_v3.h
+@@ -13,6 +13,12 @@
+ #include <wlr/types/wlr_seat.h>
+ #include <wlr/types/wlr_surface.h>
+ 
++enum wlr_text_input_v3_features {
++	WLR_TEXT_INPUT_V3_FEATURE_SURROUNDING_TEXT = 1 << 0,
++	WLR_TEXT_INPUT_v3_FEATURE_CONTENT_TYPE = 1 << 1,
++	WLR_TEXT_INPUT_V3_FEATURE_CURSOR_RECTANGLE = 1 << 2,
++};
++
+ struct wlr_text_input_v3_state {
+ 	struct {
+ 		char *text; // NULL is allowed and equivalent to empty string
+@@ -33,6 +39,10 @@ struct wlr_text_input_v3_state {
+ 		int32_t width;
+ 		int32_t height;
+ 	} cursor_rectangle;
++
++	// Tracks which features were used in the current commit.
++	// Useful in the enabling commit, where usage means support.
++	uint32_t features; // OR'ed wlr_text_input_v3_features
+ };
+ 
+ struct wlr_text_input_v3 {
+@@ -44,6 +54,8 @@ struct wlr_text_input_v3 {
+ 	uint32_t current_serial; // next in line to send
+ 	bool pending_enabled;
+ 	bool current_enabled;
++	// supported in the current text input, more granular than surface
++	uint32_t active_features; // OR'ed wlr_text_input_v3_features
+ 
+ 	struct wl_list link;
+ 
+diff --git a/types/wlr_text_input_v3.c b/types/wlr_text_input_v3.c
+index ef610a0b..7f0d7f92 100644
+--- a/types/wlr_text_input_v3.c
++++ b/types/wlr_text_input_v3.c
+@@ -121,7 +121,7 @@ static void text_input_set_surrounding_text(struct wl_client *client,
+ 	if (!text_input->pending.surrounding.text) {
+ 		wl_client_post_no_memory(client);
+ 	}
+-
++	text_input->pending.features |= WLR_TEXT_INPUT_V3_FEATURE_SURROUNDING_TEXT;
+ 	text_input->pending.surrounding.cursor = cursor;
+ 	text_input->pending.surrounding.anchor = anchor;
+ }
+@@ -141,6 +141,7 @@ static void text_input_set_content_type(struct wl_client *client,
+ 	if (!text_input) {
+ 		return;
+ 	}
++	text_input->pending.features |= WLR_TEXT_INPUT_v3_FEATURE_CONTENT_TYPE;
+ 	text_input->pending.content_type.hint = hint;
+ 	text_input->pending.content_type.purpose = purpose;
+ }
+@@ -152,6 +153,7 @@ static void text_input_set_cursor_rectangle(struct wl_client *client,
+ 	if (!text_input) {
+ 		return;
+ 	}
++	text_input->pending.features |= WLR_TEXT_INPUT_V3_FEATURE_CURSOR_RECTANGLE;
+ 	text_input->pending.cursor_rectangle.x = x;
+ 	text_input->pending.cursor_rectangle.y = y;
+ 	text_input->pending.cursor_rectangle.width = width;
+@@ -180,8 +182,10 @@ static void text_input_commit(struct wl_client *client,
+ 	}
+ 
+ 	if (!old_enabled && text_input->current_enabled) {
++		text_input->active_features	= text_input->current.features;
+ 		wlr_signal_emit_safe(&text_input->events.enable, text_input);
+ 	} else if (old_enabled && !text_input->current_enabled) {
++		text_input->active_features	= 0;
+ 		wlr_signal_emit_safe(&text_input->events.disable, text_input);
+ 	} else { // including never enabled
+ 		wlr_signal_emit_safe(&text_input->events.commit, text_input);
+-- 
+2.26.0
+

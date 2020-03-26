@@ -1,0 +1,40 @@
+From a618b7e1cde3cf536bc0eb18613d8ca02473baf2 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Guido=20G=C3=BCnther?= <agx@sigxcpu.org>
+Date: Sun, 22 Mar 2020 15:47:00 +0100
+Subject: [PATCH 14/14] drm: Use DRM_FORMAT_MOD_LINEAR when no other format
+ modifiers are present
+
+The absence of modifiers means "assume linear" not "don't use any
+modifier". This prevents gallium from using plain resource_create but
+rather resource_create_with_modifiers.
+
+This unbreaks broken rendering on etnaviv as resource_create assumes
+it can supertile (which makes sense since e.g. dcss and ipuv3 can
+handle these formats). However lcdif/mxsfb can't handle this so
+be explicit about the modifier.
+
+Weston does the same, see drm_plane_populate_formats().
+
+Closes: mesa#4
+---
+ backend/drm/renderer.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/backend/drm/renderer.c b/backend/drm/renderer.c
+index 25101a4b..5a4144ee 100644
+--- a/backend/drm/renderer.c
++++ b/backend/drm/renderer.c
+@@ -90,6 +90,10 @@ bool init_drm_surface(struct wlr_drm_surface *surf,
+ 		if (drm_format != NULL) {
+ 			surf->gbm = gbm_surface_create_with_modifiers(renderer->gbm,
+ 				width, height, format, drm_format->modifiers, drm_format->len);
++		} else {
++			uint64_t formats[] = { DRM_FORMAT_MOD_LINEAR };
++			surf->gbm = gbm_surface_create_with_modifiers(renderer->gbm,
++				width, height, format, formats, 1);
+ 		}
+ 	}
+ 
+-- 
+2.26.0
+
