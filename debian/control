@@ -36,7 +36,7 @@ Architecture: any
 Multi-Arch: same
 Depends:
  ${misc:Depends},
- libwlroots3 (= ${binary:Version}),
+ libwlroots5 (= ${binary:Version}),
  libcap-dev,
  libdrm-dev,
  libegl1-mesa-dev,
@@ -52,7 +52,9 @@ Depends:
  libxcb-image0-dev,
  libxcb-render0-dev,
  libxcb-xfixes0-dev,
+ libxcb-xinput-dev,
  libxkbcommon-dev,
+ libx11-xcb-dev,
  wayland-protocols (>= 1.15),
 Description: Modular wayland compositor library - development headers
  wlroots is a set of pluggable, composable modules to build a Wayland
@@ -60,7 +62,7 @@ Description: Modular wayland compositor library - development headers
  .
  This package contains the development headers.
 
-Package: libwlroots3
+Package: libwlroots5
 Architecture: any
 Multi-Arch: same
 Depends:
