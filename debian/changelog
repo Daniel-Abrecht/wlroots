@@ -1,3 +1,9 @@
+wlroots (0.10.0-3pureos+librem5.2) amber-phone; urgency=medium
+
+  * Temporarily disable examples
+
+ -- Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>  Fri, 27 Mar 2020 11:23:25 +0100
+
 wlroots (0.10.0-3pureos+librem5.1) amber-phone; urgency=medium
 
   * Backport to amber-phone.
