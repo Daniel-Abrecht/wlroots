@@ -1,20 +1,19 @@
-From e16753c4ae6b09f4c7cc35b9eff5c807f6fd38c5 Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Guido=20G=C3=BCnther?= <agx@sigxcpu.org>
+From: =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>
 Date: Fri, 25 Oct 2019 19:26:22 +0200
-Subject: [PATCH 06/14] examples: add output-power-management example client
+Subject: examples: add output-power-management example client
 
 (cherry picked from commit 0df50196099eedfe0e28129815121bebfccf40ed)
 ---
  examples/meson.build               |   5 ++
- examples/output-power-management.c | 134 +++++++++++++++++++++++++++++
+ examples/output-power-management.c | 134 +++++++++++++++++++++++++++++++++++++
  2 files changed, 139 insertions(+)
  create mode 100644 examples/output-power-management.c
 
 diff --git a/examples/meson.build b/examples/meson.build
-index 90ac7611..53f860f7 100644
+index c52ef57..b7b33ff 100644
 --- a/examples/meson.build
 +++ b/examples/meson.build
-@@ -80,6 +80,11 @@ clients = {
+@@ -81,6 +81,11 @@ clients = {
  		'dep': [wayland_cursor, math],
  		'proto': ['wlr-gamma-control-unstable-v1'],
  	},
@@ -28,7 +27,7 @@ index 90ac7611..53f860f7 100644
  		'dep': wlroots,
 diff --git a/examples/output-power-management.c b/examples/output-power-management.c
 new file mode 100644
-index 00000000..19bc8271
+index 0000000..19bc827
 --- /dev/null
 +++ b/examples/output-power-management.c
 @@ -0,0 +1,134 @@
@@ -166,6 +165,3 @@ index 00000000..19bc8271
 +
 +	return EXIT_SUCCESS;
 +}
--- 
-2.26.0
-
