@@ -1,3 +1,9 @@
+wlroots (0.10.1-1pureos+librem5.2) amber-phone; urgency=high
+
+  * Rebase on top of Debian's 0.10.1-1
+
+ -- Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>  Wed, 22 Apr 2020 19:48:20 +0200
+
 wlroots (0.10.1-1) unstable; urgency=medium
 
   * New upstream version 0.10.1
