@@ -7,3 +7,4 @@
 0007-wlr_output_power_management_v1-Init-output_power-lin.patch
 0008-text_input_v3-Note-features-supported-by-the-text-fi.patch
 0009-drm-Use-DRM_FORMAT_MOD_LINEAR-when-no-other-format-m.patch
+0010-Declare-wlr_seat-globals-as-extern.patch
