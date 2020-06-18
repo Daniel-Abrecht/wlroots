@@ -1,3 +1,9 @@
+wlroots (0.10.1-1pureos+librem5.3) amber-phone; urgency=medium
+
+  * [be04968] Sync with librem5-0.10.x branch
+
+ -- Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>  Thu, 18 Jun 2020 05:06:52 +0200
+
 wlroots (0.10.1-1pureos+librem5.2) amber-phone; urgency=high
 
   * Rebase on top of Debian's 0.10.1-1
