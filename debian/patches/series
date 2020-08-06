@@ -1,4 +1,3 @@
-0001-Revert-Revert-wlr_xdg_popup-don-t-treat-all-surfaces.patch
 0002-backend-drm-Retry-disable-without-unsetting-mode-and.patch
 0003-Revert-Bump-meson-version-to-0.51.2.patch
 0004-Add-wlr-output-power-management.patch
