@@ -1,3 +1,9 @@
+wlroots (0.10.1-1pureos+librem5.4) amber-phone; urgency=medium
+
+  * [fdb51d7] Drop the "wlr_xdg_popup: don't treat all surfaces of grabbing client as grabbing surfaces" patch
+
+ -- Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>  Thu, 06 Aug 2020 14:49:42 +0200
+
 wlroots (0.10.1-1pureos+librem5.3) amber-phone; urgency=medium
 
   * [be04968] Sync with librem5-0.10.x branch
