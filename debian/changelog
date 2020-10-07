@@ -1,3 +1,9 @@
+wlroots (0.10.1-1pureos+librem5.5) amber-phone; urgency=medium
+
+  * [b28e266] Add "output-management-v1: send complete head state on enable change" patch
+
+ -- Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>  Wed, 07 Oct 2020 22:46:16 +0200
+
 wlroots (0.10.1-1pureos+librem5.4) amber-phone; urgency=medium
 
   * [fdb51d7] Drop the "wlr_xdg_popup: don't treat all surfaces of grabbing client as grabbing surfaces" patch
