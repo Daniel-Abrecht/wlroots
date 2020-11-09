@@ -1,0 +1,46 @@
+From 3d227f140e3c4af42d759477fc38e82a4c3dc4ef Mon Sep 17 00:00:00 2001
+From: Roman Gilg <subdiff@gmail.com>
+Date: Thu, 3 Sep 2020 14:42:35 +0200
+Subject: [PATCH 2/2] output-management-v1: send head identifying information
+
+With version 2 we send make, model and serial number to allow clients the
+identification of heads.
+
+(cherry picked from commit bae8d7593c4ac9d72ddc90bded52e96056330ca2)
+---
+ types/wlr_output_management_v1.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/types/wlr_output_management_v1.c b/types/wlr_output_management_v1.c
+index 7f12439f..372d051e 100644
+--- a/types/wlr_output_management_v1.c
++++ b/types/wlr_output_management_v1.c
+@@ -6,7 +6,7 @@
+ #include "util/signal.h"
+ #include "wlr-output-management-unstable-v1-protocol.h"
+ 
+-#define OUTPUT_MANAGER_VERSION 1
++#define OUTPUT_MANAGER_VERSION 2
+ 
+ enum {
+ 	HEAD_STATE_ENABLED = 1 << 0,
+@@ -763,6 +763,16 @@ static void manager_send_head(struct wlr_output_manager_v1 *manager,
+ 			output->phys_width, output->phys_height);
+ 	}
+ 
++	if (version >= ZWLR_OUTPUT_HEAD_V1_MAKE_SINCE_VERSION && output->make[0] != '\0') {
++		zwlr_output_head_v1_send_make(head_resource, output->make);
++	}
++	if (version >= ZWLR_OUTPUT_HEAD_V1_MODEL_SINCE_VERSION && output->model[0] != '\0') {
++		zwlr_output_head_v1_send_model(head_resource, output->model);
++	}
++	if (version >= ZWLR_OUTPUT_HEAD_V1_SERIAL_NUMBER_SINCE_VERSION && output->serial[0] != '\0') {
++		zwlr_output_head_v1_send_serial_number(head_resource, output->serial);
++	}
++
+ 	struct wlr_output_mode *mode;
+ 	wl_list_for_each(mode, &output->modes, link) {
+ 		head_send_mode(head, head_resource, mode);
+-- 
+2.29.2
+

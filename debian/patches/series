@@ -9,3 +9,6 @@
 0010-Declare-wlr_seat-globals-as-extern.patch
 0011-output-management-v1-send-complete-head-state-on-ena.patch
 0012-virtual-keyboard-add-wlr_input_device_get_virtual_ke.patch
+0013-output-management-v1-add-head-identifying-events.patch
+0014-output-management-v1-send-head-identifying-informati.patch
+
