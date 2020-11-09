@@ -8,3 +8,4 @@
 0009-drm-Use-DRM_FORMAT_MOD_LINEAR-when-no-other-format-m.patch
 0010-Declare-wlr_seat-globals-as-extern.patch
 0011-output-management-v1-send-complete-head-state-on-ena.patch
+0012-virtual-keyboard-add-wlr_input_device_get_virtual_ke.patch

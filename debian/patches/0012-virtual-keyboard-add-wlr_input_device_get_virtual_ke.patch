@@ -1,0 +1,45 @@
+From 4c961665f0dcdacb921013dd354df88bb35e4a99 Mon Sep 17 00:00:00 2001
+From: xdavidwu <xdavidwuph@gmail.com>
+Date: Wed, 8 Jul 2020 10:46:28 +0200
+Subject: [PATCH] virtual-keyboard: add wlr_input_device_get_virtual_keyboard
+
+(cherry picked from commit 61e2ebac908c33cfaf06a53a09e829ac97eca400)
+---
+ include/wlr/types/wlr_virtual_keyboard_v1.h | 3 +++
+ types/wlr_virtual_keyboard_v1.c             | 8 ++++++++
+ 2 files changed, 11 insertions(+)
+
+diff --git a/include/wlr/types/wlr_virtual_keyboard_v1.h b/include/wlr/types/wlr_virtual_keyboard_v1.h
+index 78f80fbb..23f34ad8 100644
+--- a/include/wlr/types/wlr_virtual_keyboard_v1.h
++++ b/include/wlr/types/wlr_virtual_keyboard_v1.h
+@@ -41,4 +41,7 @@ struct wlr_virtual_keyboard_v1 {
+ struct wlr_virtual_keyboard_manager_v1* wlr_virtual_keyboard_manager_v1_create(
+ 	struct wl_display *display);
+ 
++struct wlr_virtual_keyboard_v1 *wlr_input_device_get_virtual_keyboard(
++	struct wlr_input_device *wlr_dev);
++
+ #endif
+diff --git a/types/wlr_virtual_keyboard_v1.c b/types/wlr_virtual_keyboard_v1.c
+index 258a08cb..7ae030ee 100644
+--- a/types/wlr_virtual_keyboard_v1.c
++++ b/types/wlr_virtual_keyboard_v1.c
+@@ -40,6 +40,14 @@ static struct wlr_virtual_keyboard_v1 *virtual_keyboard_from_resource(
+ 	return wl_resource_get_user_data(resource);
+ }
+ 
++struct wlr_virtual_keyboard_v1 *wlr_input_device_get_virtual_keyboard(
++		struct wlr_input_device *wlr_dev) {
++	if (wlr_dev->impl != &input_device_impl) {
++		return NULL;
++	}
++	return (struct wlr_virtual_keyboard_v1 *)wlr_dev;
++}
++
+ static void virtual_keyboard_keymap(struct wl_client *client,
+ 		struct wl_resource *resource, uint32_t format, int32_t fd,
+ 		uint32_t size) {
+-- 
+2.29.2
+
