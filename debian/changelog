@@ -1,3 +1,11 @@
+wlroots (0.10.1-1pureos+librem5.6) amber-phone; urgency=high
+
+  * [d3e9127] d/gbp.conf: Set sign-tags to true
+  * [adac0f5] Backport: virtual-keyboard: add wlr_input_device_get_virtual_keyboard
+  * [d6113e5] Backport: heads: Add output information
+
+ -- Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>  Tue, 10 Nov 2020 04:29:42 +0100
+
 wlroots (0.10.1-1pureos+librem5.5) amber-phone; urgency=medium
 
   * [b28e266] Add "output-management-v1: send complete head state on enable change" patch
